@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Denial Worklist</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#2563eb", // blue-600
+            "background-light": "#f3f4f6", // gray-100
+            "background-dark": "#111827", // gray-900
+            "input-bg-light": "#f9fafb", // gray-50
+            "input-bg-dark": "#374151", // gray-700
+            "input-border-light": "#d1d5db", // gray-300
+            "input-border-dark": "#4b5563", // gray-600,
+            "readonly-bg-light": "#e5e7eb", // gray-200
+            "readonly-bg-dark": "#1f2937", // gray-800
+            "readonly-text-light": "#4b5563", // gray-600
+            "readonly-text-dark": "#d1d5db", // gray-300
+          },
+          fontFamily: {
+            display: ["Inter", "sans-serif"],
+          },
+          borderRadius: {
+            DEFAULT: "0.5rem", // 8px
+          },
+        },
+      },
+    };
+  </script>
+<style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .group:hover .group-hover\:block {
+        display: block;
+    }.switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 24px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 24px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #2563eb;
+    }
+    input:checked + .slider:before {
+      transform: translateX(16px);
+    }
+    .mail-follow-up-group:has(input:not(:checked)) #mail-subject-container {
+        display: none;
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="p-4 sm:p-6 lg:p-8 min-h-screen">
+<header class="flex justify-between items-center mb-6">
+<div>
+<h1 class="text-2xl font-bold text-gray-900 dark:text-white">Denial Worklist</h1>
+<p class="text-sm text-gray-500 dark:text-gray-400">Logged in as <span class="font-medium text-gray-700 dark:text-gray-300">Sarah Johnson</span></p>
+</div>
+<button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+<span class="material-symbols-outlined">
+          settings
+        </span>
+</button>
+</header>
+<main class="space-y-6">
+<section class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
+<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm flex flex-col justify-center">
+<p class="text-xs text-gray-500 dark:text-gray-400 text-center">Total Denial Received</p>
+<p class="font-bold text-2xl text-primary text-center">250</p>
+</div>
+<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm flex flex-col justify-center">
+<p class="text-xs text-gray-500 dark:text-gray-400 text-center">Total Worked</p>
+<p class="font-bold text-2xl text-green-600 dark:text-green-400 text-center">185</p>
+</div>
+<div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm flex flex-col justify-center">
+<p class="text-xs text-gray-500 dark:text-gray-400 text-center">Total Pending</p>
+<p class="font-bold text-2xl text-red-600 dark:text-red-400 text-center">50</p>
+</div>
+</section>
+<section class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+<div class="flex flex-col sm:flex-row justify-between sm:items-center mb-6 gap-4">
+<h2 class="text-lg font-semibold text-gray-900 dark:text-white shrink-0">Account Work Form</h2>
+<div class="w-full relative group">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">search</span>
+<input class="w-full bg-input-bg-light dark:bg-input-bg-dark border border-input-border-light dark:border-input-border-dark rounded-md focus:ring-primary focus:border-primary text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 pl-10 pr-4 py-2 text-sm" placeholder="Search Visit ID..." type="text"/>
+</div>
+<div class="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg hidden group-hover:block">
+<ul class="py-1 text-sm text-gray-700 dark:text-gray-200">
+<li><a class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" href="#">VIS-2024-001 - John Anderson</a></li>
+<li><a class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" href="#">VIS-2024-002 - Maria Rodriguez</a></li>
+<li><a class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" href="#">VIS-2024-003 - Robert Chen</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-4 mb-6 text-sm">
+<div>
+<label class="text-gray-500 dark:text-gray-400 block mb-1 text-xs" for="client">Client</label>
+<input class="w-full text-base bg-readonly-bg-light dark:bg-readonly-bg-dark border-transparent rounded-md p-2 text-readonly-text-light dark:text-readonly-text-dark cursor-not-allowed font-medium" id="client" readonly="" type="text" value="Blue Cross Blue Shield"/>
+</div>
+<div>
+<label class="text-gray-500 dark:text-gray-400 block mb-1 text-xs" for="visit-id">Visit ID</label>
+<input class="w-full text-base bg-readonly-bg-light dark:bg-readonly-bg-dark border-transparent rounded-md p-2 text-readonly-text-light dark:text-readonly-text-dark cursor-not-allowed font-medium" id="visit-id" readonly="" type="text" value="VIS-2024-001"/>
+</div>
+<div>
+<label class="text-gray-500 dark:text-gray-400 block mb-1 text-xs" for="patient-name">Patient Name</label>
+<input class="w-full text-base bg-readonly-bg-light dark:bg-readonly-bg-dark border-transparent rounded-md p-2 text-readonly-text-light dark:text-readonly-text-dark cursor-not-allowed font-medium" id="patient-name" readonly="" type="text" value="John Anderson"/>
+</div>
+<div>
+<label class="text-gray-500 dark:text-gray-400 block mb-1 text-xs" for="dos">DOS</label>
+<input class="w-full text-base bg-readonly-bg-light dark:bg-readonly-bg-dark border-transparent rounded-md p-2 text-readonly-text-light dark:text-readonly-text-dark cursor-not-allowed font-medium" id="dos" readonly="" type="text" value="Jan 15, 2024"/>
+</div>
+<div>
+<label class="text-gray-500 dark:text-gray-400 block mb-1 text-xs" for="charge-amount">Charge Amount</label>
+<input class="w-full text-base bg-readonly-bg-light dark:bg-readonly-bg-dark border-transparent rounded-md p-2 text-readonly-text-light dark:text-readonly-text-dark cursor-not-allowed font-medium" id="charge-amount" readonly="" type="text" value="$12,500.00"/>
+</div>
+<div>
+<label class="text-gray-500 dark:text-gray-400 block mb-1 text-xs" for="worked-by">Worked By</label>
+<input class="w-full text-base bg-readonly-bg-light dark:bg-readonly-bg-dark border-transparent rounded-md p-2 text-readonly-text-light dark:text-readonly-text-dark cursor-not-allowed font-medium" id="worked-by" readonly="" type="text" value="Sarah Johnson"/>
+</div>
+<div>
+<label class="text-gray-500 dark:text-gray-400 block mb-1 text-xs" for="worked-date">Worked Date</label>
+<input class="w-full text-base bg-readonly-bg-light dark:bg-readonly-bg-dark border-transparent rounded-md p-2 text-readonly-text-light dark:text-readonly-text-dark cursor-not-allowed font-medium" id="worked-date" readonly="" type="text" value="Jun 1, 2024"/>
+</div>
+<div>
+<label class="text-gray-500 dark:text-gray-400 block mb-1 text-xs" for="assigned-to-readonly">Assigned To</label>
+<input class="w-full text-base bg-readonly-bg-light dark:bg-readonly-bg-dark border-transparent rounded-md p-2 text-readonly-text-light dark:text-readonly-text-dark cursor-not-allowed font-medium" id="assigned-to-readonly" readonly="" type="text" value="Sarah Johnson"/>
+</div>
+<div>
+<label class="text-gray-500 dark:text-gray-400 block mb-1 text-xs" for="captured-date">Captured Date</label>
+<input class="w-full text-sm bg-input-bg-light dark:bg-input-bg-dark border-input-border-light dark:border-input-border-dark rounded-md p-2" id="captured-date" type="date" value="2024-06-02"/>
+</div>
+<div>
+<label class="text-gray-500 dark:text-gray-400 block mb-1 text-xs" for="received-date">Received Date</label>
+<input class="w-full text-sm bg-input-bg-light dark:bg-input-bg-dark border-input-border-light dark:border-input-border-dark rounded-md p-2" id="received-date" type="date" value="2024-06-03"/>
+</div>
+<div class="col-span-1 sm:col-span-2">
+<label class="text-gray-500 dark:text-gray-400 block mb-1 text-xs" for="insurance">Insurance</label>
+<div class="flex items-center gap-2">
+<select class="w-full text-sm bg-input-bg-light dark:bg-input-bg-dark border-input-border-light dark:border-input-border-dark rounded-md" id="insurance">
+<option>Blue Cross Blue Shield</option>
+<option>United Healthcare</option>
+<option>Aetna</option>
+</select>
+<button class="flex-shrink-0 text-sm text-primary hover:underline">+ Add Insurance</button>
+</div>
+</div>
+<div>
+<label class="text-gray-500 dark:text-gray-400 block mb-1 text-xs" for="insurance-type">Insurance Type</label>
+<select class="w-full text-sm bg-input-bg-light dark:bg-input-bg-dark border-input-border-light dark:border-input-border-dark rounded-md" id="insurance-type">
+<option>Primary</option>
+<option>Secondary</option>
+<option>Tertiary</option>
+</select>
+</div>
+<div>
+<label class="text-gray-500 dark:text-gray-400 block mb-1 text-xs" for="file-name">File Name</label>
+<input class="w-full text-sm bg-input-bg-light dark:bg-input-bg-dark border-input-border-light dark:border-input-border-dark rounded-md p-2" id="file-name" placeholder="Enter file name or URL" type="text" value="https://example.com/EOB_VIS-2024-001.pdf"/>
+</div>
+<div>
+<label class="text-gray-500 dark:text-gray-400 block mb-1 text-xs" for="page-no">Page No</label>
+<input class="w-full text-sm bg-input-bg-light dark:bg-input-bg-dark border-input-border-light dark:border-input-border-dark rounded-md p-2" id="page-no" type="text" value="3"/>
+</div>
+<div>
+<label class="text-gray-500 dark:text-gray-400 block mb-1 text-xs" for="denial-code">Denial Code</label>
+<input class="w-full text-sm bg-input-bg-light dark:bg-input-bg-dark border-input-border-light dark:border-input-border-dark rounded-md p-2" id="denial-code" type="text" value="CO-16"/>
+</div>
+<div class="lg:col-span-1">
+<label class="text-gray-500 dark:text-gray-400 block mb-1 text-xs" for="claim-no">Claim No</label>
+<input class="w-full text-sm bg-input-bg-light dark:bg-input-bg-dark border-input-border-light dark:border-input-border-dark rounded-md p-2" id="claim-no" type="text" value="CLM589432"/>
+</div>
+<div class="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-3">
+<label class="text-gray-500 dark:text-gray-400 block mb-1 text-xs" for="denial-desc">Denial Description</label>
+<textarea class="w-full text-sm bg-input-bg-light dark:bg-input-bg-dark border-input-border-light dark:border-input-border-dark rounded-md p-2" id="denial-desc" rows="1">Claim/service lacks information or has submission/billing error(s).</textarea>
+</div>
+</div>
+<div class="mb-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-md font-semibold text-gray-900 dark:text-white">CPT Codes</h3>
+<div class="flex items-center space-x-2 text-sm">
+<input class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" id="select-all" type="checkbox"/>
+<label class="text-gray-600 dark:text-gray-400" for="select-all">Select all for posting</label>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3">
+<div class="p-3 rounded-lg bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-700">
+<div class="flex justify-between items-start mb-2">
+<div class="grid grid-cols-2 w-full gap-2">
+<div>
+<p class="text-xs text-gray-500 dark:text-gray-400">CPT Code</p>
+<p class="font-semibold text-gray-800 dark:text-gray-200">99214</p>
+</div>
+<div>
+<p class="text-xs text-gray-500 dark:text-gray-400">Modifier</p>
+<p class="font-semibold text-gray-800 dark:text-gray-200">25</p>
+</div>
+</div>
+<input class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary ml-2" type="checkbox"/>
+</div>
+<div class="grid grid-cols-3 gap-2 text-xs">
+<div>
+<p class="text-gray-500 dark:text-gray-400">Billed</p>
+<p class="font-medium text-gray-800 dark:text-gray-200">$250.00</p>
+</div>
+<div>
+<p class="text-gray-500 dark:text-gray-400">Balance</p>
+<p class="font-medium text-primary">$150.00</p>
+</div>
+<div>
+<label class="text-gray-500 dark:text-gray-400 sr-only" for="cpt-status-1">Status</label>
+<select class="w-full bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded-md py-0.5 px-1 text-xs focus:ring-primary focus:border-primary" id="cpt-status-1">
+<option>Open</option>
+<option>Closed</option>
+<option>Reopen</option>
+</select>
+</div>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-700">
+<div class="flex justify-between items-start mb-2">
+<div class="grid grid-cols-2 w-full gap-2">
+<div>
+<p class="text-xs text-gray-500 dark:text-gray-400">CPT Code</p>
+<p class="font-semibold text-gray-800 dark:text-gray-200">93000</p>
+</div>
+<div>
+<p class="text-xs text-gray-500 dark:text-gray-400">Modifier</p>
+<p class="font-semibold text-gray-800 dark:text-gray-200"></p>
+</div>
+</div>
+<input class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary ml-2" type="checkbox"/>
+</div>
+<div class="grid grid-cols-3 gap-2 text-xs">
+<div>
+<p class="text-gray-500 dark:text-gray-400">Billed</p>
+<p class="font-medium text-gray-800 dark:text-gray-200">$75.00</p>
+</div>
+<div>
+<p class="text-gray-500 dark:text-gray-400">Balance</p>
+<p class="font-medium text-primary">$75.00</p>
+</div>
+<div>
+<label class="text-gray-500 dark:text-gray-400 sr-only" for="cpt-status-2">Status</label>
+<select class="w-full bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded-md py-0.5 px-1 text-xs focus:ring-primary focus:border-primary" id="cpt-status-2">
+<option>Open</option>
+<option>Closed</option>
+<option>Reopen</option>
+</select>
+</div>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-700">
+<div class="flex justify-between items-start mb-2">
+<div class="grid grid-cols-2 w-full gap-2">
+<div>
+<p class="text-xs text-gray-500 dark:text-gray-400">CPT Code</p>
+<p class="font-semibold text-gray-800 dark:text-gray-200">80053</p>
+</div>
+<div>
+<p class="text-xs text-gray-500 dark:text-gray-400">Modifier</p>
+<p class="font-semibold text-gray-800 dark:text-gray-200"></p>
+</div>
+</div>
+<input class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary ml-2" type="checkbox"/>
+</div>
+<div class="grid grid-cols-3 gap-2 text-xs">
+<div>
+<p class="text-gray-500 dark:text-gray-400">Billed</p>
+<p class="font-medium text-gray-800 dark:text-gray-200">$120.00</p>
+</div>
+<div>
+<p class="text-gray-500 dark:text-gray-400">Balance</p>
+<p class="font-medium text-primary">$120.00</p>
+</div>
+<div>
+<label class="text-gray-500 dark:text-gray-400 sr-only" for="cpt-status-3">Status</label>
+<select class="w-full bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded-md py-0.5 px-1 text-xs focus:ring-primary focus:border-primary" id="cpt-status-3">
+<option selected="">Closed</option>
+<option>Open</option>
+<option>Reopen</option>
+</select>
+</div>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-700">
+<div class="flex justify-between items-start mb-2">
+<div class="grid grid-cols-2 w-full gap-2">
+<div>
+<p class="text-xs text-gray-500 dark:text-gray-400">CPT Code</p>
+<p class="font-semibold text-gray-800 dark:text-gray-200">71045</p>
+</div>
+<div>
+<p class="text-xs text-gray-500 dark:text-gray-400">Modifier</p>
+<p class="font-semibold text-gray-800 dark:text-gray-200"></p>
+</div>
+</div>
+<input class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary ml-2" type="checkbox"/>
+</div>
+<div class="grid grid-cols-3 gap-2 text-xs">
+<div>
+<p class="text-gray-500 dark:text-gray-400">Billed</p>
+<p class="font-medium text-gray-800 dark:text-gray-200">$95.00</p>
+</div>
+<div>
+<p class="text-gray-500 dark:text-gray-400">Balance</p>
+<p class="font-medium text-primary">$95.00</p>
+</div>
+<div>
+<label class="text-gray-500 dark:text-gray-400 sr-only" for="cpt-status-4">Status</label>
+<select class="w-full bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded-md py-0.5 px-1 text-xs focus:ring-primary focus:border-primary" id="cpt-status-4">
+<option>Open</option>
+<option>Closed</option>
+<option>Reopen</option>
+</select>
+</div>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-700">
+<div class="flex justify-between items-start mb-2">
+<div class="grid grid-cols-2 w-full gap-2">
+<div>
+<p class="text-xs text-gray-500 dark:text-gray-400">CPT Code</p>
+<p class="font-semibold text-gray-800 dark:text-gray-200">J3490</p>
+</div>
+<div>
+<p class="text-xs text-gray-500 dark:text-gray-400">Modifier</p>
+<p class="font-semibold text-gray-800 dark:text-gray-200"></p>
+</div>
+</div>
+<input class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary ml-2" type="checkbox"/>
+</div>
+<div class="grid grid-cols-3 gap-2 text-xs">
+<div>
+<p class="text-gray-500 dark:text-gray-400">Billed</p>
+<p class="font-medium text-gray-800 dark:text-gray-200">$550.00</p>
+</div>
+<div>
+<p class="text-gray-500 dark:text-gray-400">Balance</p>
+<p class="font-medium text-gray-800 dark:text-gray-200">$0.00</p>
+</div>
+<div>
+<label class="text-gray-500 dark:text-gray-400 sr-only" for="cpt-status-5">Status</label>
+<select class="w-full bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 rounded-md py-0.5 px-1 text-xs focus:ring-primary focus:border-primary" id="cpt-status-5">
+<option selected="">Closed</option>
+<option>Open</option>
+<option>Reopen</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-6 border-t border-gray-200 dark:border-gray-700">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" for="analyst-comments">Analyst Comments</label>
+<textarea class="w-full text-sm bg-input-bg-light dark:bg-input-bg-dark border-input-border-light dark:border-input-border-dark rounded-md p-2 h-36" id="analyst-comments" placeholder="Enter analyst comments..." rows="4"></textarea>
+</div>
+<div class="flex flex-col">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" for="mode-of-submission">Mode Of Submission</label>
+<select class="w-full text-sm bg-input-bg-light dark:bg-input-bg-dark border-input-border-light dark:border-input-border-dark rounded-md" id="mode-of-submission">
+<option>Portal</option>
+<option>Paper</option>
+<option>Fax</option>
+</select>
+</div>
+<div class="mail-follow-up-group">
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Mail Follow up</label>
+<div class="flex items-center space-x-2">
+<span class="text-sm">No</span>
+<label class="switch">
+<input id="mail-follow-up" type="checkbox"/>
+<span class="slider"></span>
+</label>
+<span class="text-sm">Yes</span>
+</div>
+</div>
+</div>
+<div class="mt-4" id="mail-subject-container">
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" for="mail-subject">Subject</label>
+<input class="w-full text-sm bg-input-bg-light dark:bg-input-bg-dark border-input-border-light dark:border-input-border-dark rounded-md p-2" id="mail-subject" placeholder="Enter subject for mail follow up" type="text"/>
+</div>
+</div>
+<div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-2">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" for="status-code">Status Code</label>
+<select class="w-full text-sm bg-input-bg-light dark:bg-input-bg-dark border-input-border-light dark:border-input-border-dark rounded-md" id="status-code">
+<option>Select Status Code</option>
+<option>S1 - Appeal Submitted</option>
+<option>S2 - Pending Payer Response</option>
+<option>S3 - Corrected Claim Sent</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" for="action-code">Action Code</label>
+<select class="w-full text-sm bg-input-bg-light dark:bg-input-bg-dark border-input-border-light dark:border-input-border-dark rounded-md" id="action-code">
+<option>Select Action Code</option>
+<option>A1 - Appeal</option>
+<option>A2 - Rebill</option>
+<option>A3 - Close</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" for="assigned-to">Assigned To</label>
+<select class="w-full text-sm bg-input-bg-light dark:bg-input-bg-dark border-input-border-light dark:border-input-border-dark rounded-md" id="assigned-to">
+<option>Sarah Johnson</option>
+<option>Mark Lee</option>
+<option>Emily Chen</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-6 flex justify-end">
+<button class="bg-primary text-white font-semibold py-2 px-6 rounded-md hover:bg-blue-700 transition-colors">
+            Save Changes
+          </button>
+</div>
+</section>
+<section class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+<div class="flex justify-between items-center mb-4">
+<h2 class="text-lg font-semibold text-gray-900 dark:text-white">Worked Accounts - last 5 recently worked</h2>
+<div class="flex items-center space-x-2 text-sm">
+<label class="text-gray-500 dark:text-gray-400" for="display-qty">Show:</label>
+<select class="text-sm bg-input-bg-light dark:bg-input-bg-dark border-input-border-light dark:border-input-border-dark rounded-md py-1" id="display-qty">
+<option>5</option>
+<option>10</option>
+<option>20</option>
+<option>100</option>
+</select>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-sm text-left">
+<thead class="text-xs text-gray-500 dark:text-gray-400 uppercase bg-gray-50 dark:bg-gray-700/50">
+<tr>
+<th class="p-3">Client</th>
+<th class="p-3">Visit ID</th>
+<th class="p-3">Patient Name</th>
+<th class="p-3">DOS</th>
+<th class="p-3 text-right">Billed Amount</th>
+<th class="p-3 text-right">Balance Amount</th>
+<th class="p-3">Type</th>
+<th class="p-3">Claim Type</th>
+<th class="p-3">CPT Code</th>
+<th class="p-3">Modifier</th>
+<th class="p-3"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+<td class="p-3 font-medium text-primary">Blue Cross Blue Shield</td>
+<td class="p-3">VIS-2024-001</td>
+<td class="p-3">John Anderson</td>
+<td class="p-3">Jan 15, 2024</td>
+<td class="p-3 text-right">$12,500.00</td>
+<td class="p-3 text-right text-primary font-medium">$8,500.00</td>
+<td class="p-3"><span class="text-xs font-medium bg-blue-100 text-primary dark:bg-blue-900 dark:text-blue-300 px-2 py-0.5 rounded-full">Primary</span></td>
+<td class="p-3">Biologic</td>
+<td class="p-3">99214</td>
+<td class="p-3">25</td>
+<td class="p-3"><button class="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"><span class="material-symbols-outlined text-base">edit</span></button></td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+<td class="p-3 font-medium text-gray-800 dark:text-gray-200">United Healthcare</td>
+<td class="p-3">VIS-2024-002</td>
+<td class="p-3">Maria Rodriguez</td>
+<td class="p-3">Feb 20, 2024</td>
+<td class="p-3 text-right">$8,750.00</td>
+<td class="p-3 text-right text-primary font-medium">$8,750.00</td>
+<td class="p-3"><span class="text-xs font-medium bg-gray-200 text-gray-800 dark:bg-gray-600 dark:text-gray-300 px-2 py-0.5 rounded-full">Secondary</span></td>
+<td class="p-3">Medical</td>
+<td class="p-3">93000</td>
+<td class="p-3"></td>
+<td class="p-3"><button class="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"><span class="material-symbols-outlined text-base">edit</span></button></td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+<td class="p-3 font-medium text-gray-800 dark:text-gray-200">Aetna</td>
+<td class="p-3">VIS-2024-003</td>
+<td class="p-3">Robert Chen</td>
+<td class="p-3">Mar 10, 2024</td>
+<td class="p-3 text-right">$15,200.00</td>
+<td class="p-3 text-right text-primary font-medium">$15,200.00</td>
+<td class="p-3"><span class="text-xs font-medium bg-blue-100 text-primary dark:bg-blue-900 dark:text-blue-300 px-2 py-0.5 rounded-full">Primary</span></td>
+<td class="p-3">Biologic</td>
+<td class="p-3">80053</td>
+<td class="p-3"></td>
+<td class="p-3"><button class="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"><span class="material-symbols-outlined text-base">edit</span></button></td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+<td class="p-3 font-medium text-gray-800 dark:text-gray-200">Cigna</td>
+<td class="p-3">VIS-2024-004</td>
+<td class="p-3">Emily Thompson</td>
+<td class="p-3">Jan 5, 2024</td>
+<td class="p-3 text-right">$9,800.00</td>
+<td class="p-3 text-right text-primary font-medium">$4,500.00</td>
+<td class="p-3"><span class="text-xs font-medium bg-blue-100 text-primary dark:bg-blue-900 dark:text-blue-300 px-2 py-0.5 rounded-full">Primary</span></td>
+<td class="p-3">Medical</td>
+<td class="p-3">71045</td>
+<td class="p-3"></td>
+<td class="p-3"><button class="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"><span class="material-symbols-outlined text-base">edit</span></button></td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+<td class="p-3 font-medium text-gray-800 dark:text-gray-200">Humana</td>
+<td class="p-3">VIS-2024-005</td>
+<td class="p-3">David Martinez</td>
+<td class="p-3">Feb 28, 2024</td>
+<td class="p-3 text-right">$11,300.00</td>
+<td class="p-3 text-right text-primary font-medium">$11,300.00</td>
+<td class="p-3"><span class="text-xs font-medium bg-gray-200 text-gray-800 dark:bg-gray-600 dark:text-gray-300 px-2 py-0.5 rounded-full">Secondary</span></td>
+<td class="p-3">Biologic</td>
+<td class="p-3">J3490</td>
+<td class="p-3"></td>
+<td class="p-3"><button class="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"><span class="material-symbols-outlined text-base">edit</span></button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+</div>
+</body></html>
